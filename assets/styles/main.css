@@ -1,0 +1,337 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-width: 100vw;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  background: #000;
+}
+
+/* Main Wrapper */
+.main-wrapper {
+  width: 100%;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Full-Width Container */
+.container-full {
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* Parallax Background */
+.parallax-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.stars-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="2" fill="white"/></svg>') repeat;
+  background-size: 100px 100px;
+  opacity: 0.3;
+}
+
+.layer-1 { transform: translateZ(-1px) scale(2); animation: parallax 100s linear infinite; }
+.layer-2 { transform: translateZ(-2px) scale(3); animation: parallax 150s linear infinite; opacity: 0.5; }
+.layer-3 { transform: translateZ(-3px) scale(4); animation: parallax 200s linear infinite; opacity: 0.7; }
+
+@keyframes parallax {
+  0% { background-position: 0 0; }
+  100% { background-position: -1000px -1000px; }
+}
+
+/* Glowing Orbs Layer */
+.orbs-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.orbs-layer::before,
+.orbs-layer::after,
+.orbs-layer .orb-particle {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.8), rgba(59, 130, 246, 0.2));
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.8), 0 0 40px rgba(59, 130, 246, 0.5);
+  animation: drift 30s linear infinite;
+  opacity: 0.6;
+}
+
+.orbs-layer::before {
+  top: 10%;
+  left: 5%;
+  animation-duration: 25s;
+}
+
+.orbs-layer::after {
+  top: 60%;
+  left: 80%;
+  animation-duration: 35s;
+}
+
+.orbs-layer .orb-particle:nth-child(1) {
+  top: 30%;
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-duration: 40s;
+}
+
+.orbs-layer .orb-particle:nth-child(2) {
+  top: 80%;
+  left: 40%;
+  width: 25px;
+  height: 25px;
+  animation-duration: 20s;
+}
+
+.orbs-layer .orb-particle:nth-child(3) {
+  top: 20%;
+  left: 70%;
+  width: 18px;
+  height: 18px;
+  animation-duration: 30s;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(100vw, 100vh);
+    opacity: 0.6;
+  }
+}
+
+/* Neon Effects */
+.neon-glow {
+  text-shadow: 0 0 5px rgba(147, 51, 234, 0.8), 0 0 10px rgba(147, 51, 234, 0.6), 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+.neon-btn {
+  box-shadow: 0 0 10px rgba(147, 51, 234, 0.5), 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Holo-Nav */
+.holo-nav {
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+}
+
+/* Dropdown Menu */
+#menu-dropdown {
+  display: none;
+  transition: all 0.3s ease;
+}
+
+#menu-dropdown.active {
+  display: block;
+}
+
+#menu-dropdown li a {
+  display: block;
+  transition: all 0.3s ease;
+}
+
+/* Holo-Hero */
+.holo-hero {
+  background: linear-gradient(45deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2));
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+/* Category Orbs */
+.category-orbs {
+  position: relative;
+  width: 100%;
+}
+
+.category-orbs > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* Adjust orb size and spacing for smaller screens */
+.orb {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.8), rgba(59, 130, 246, 0.5));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.5);
+}
+
+.orb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+}
+
+.orb.active {
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.8), rgba(147, 51, 234, 0.5));
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.7);
+}
+
+.orb-text {
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  html, body {
+    width: 100%;
+    min-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .main-wrapper {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .container-full {
+    width: 100%;
+    min-width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-right: env(safe-area-inset-right);
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .parallax-bg {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .orb {
+    width: 70px;
+    height: 70px;
+  }
+
+  .orb-text {
+    font-size: 10px;
+  }
+}
+
+/* Holo-Card */
+.holo-card {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(147, 51, 234, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: none;
+}
+
+.holo-card.active {
+  display: block;
+}
+
+.holo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Feed and Sidebar */
+.avatar, .small-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.status-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.action-btn, .send-btn, .send-comment-btn {
+  width: 24px;
+  height: 24px;
+}
+
+.comment-list p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* Feed Mode Toggle */
+.mode-btn {
+  opacity: 0.7;
+}
+
+.mode-btn.active {
+  opacity: 1;
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.5);
+}
+
+/* Holo-Chat */
+.holo-chat {
+  transition: all 0.3s ease;
+}
+
+.chat-orb {
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.5), 0 0 25px rgba(59, 130, 246, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.chat-orb:hover {
+  transform: scale(1.2);
+}
+
+.chat-content {
+  display: none;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.chat-content.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}

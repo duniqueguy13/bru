@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruthahood Community - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1f2937 0%, #6b7280 50%, #d1d5db 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        .deep-blue {
+            background-color: #1e40af;
+        }
+        .deep-blue-hover:hover {
+            background-color: #1e3a8a;
+        }
+        .dark-silver {
+            background-color: #4a5568;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #1e40af;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e3a8a;
+        }
+        .btn-animated:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .post-animated {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .post-animated.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #93c5fd;
+            transform: scale(1.1);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .liked {
+            color: #ff4d4f !important; /* Red color for liked state */
+        }
+        @media (min-width: 1024px) {
+            .main-content {
+                padding-right: 20rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full bg-dark-silver shadow-lg z-50 animate__animated animate__fadeInDown">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="images/Logo.png" alt="Bruthahood Logo" class="h-12 w-12 mr-3 rounded-full">
+                <h1 class="text-2xl font-bold text-white">Bruthahood Community</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="flex items-center text-white nav-link">
+                    <img src="images/HomeIcon.png" alt="Home Icon" class="h-6 w-6 mr-2">
+                    Home
+                </a>
+                <a href="profile.html" class="flex items-center text-white nav-link">
+                    <img src="images/ProfileIcon.png" alt="Profile Icon" class="h-6 w-6 mr-2">
+                    Profile
+                </a>
+                <a href="dms.html" class="flex items-center text-white nav-link">
+                    <img src="images/DMsIcon.png" alt="DMs Icon" class="h-6 w-6 mr-2">
+                    DMs
+                </a>
+                <a href="polls.html" class="flex items-center text-white nav-link">
+                    <img src="images/PollsIcon.png" alt="Polls Icon" class="h-6 w-6 mr-2">
+                    Polls
+                </a>
+                <a href="communities.html" class="flex items-center text-white nav-link">
+                    <img src="images/CommunitiesIcon.png" alt="Communities Icon" class="h-6 w-6 mr-2">
+                    Communities
+                </a>
+                <a href="vip-lounge.html" class="flex items-center text-white nav-link">
+                    <img src="images/VIPIcon.png" alt="VIP Icon" class="h-6 w-6 mr-2">
+                    VIP Lounge
+                </a>
+                <a href="trending-news.html" class="flex items-center text-white nav-link">
+                    <img src="images/NewsIcon.png" alt="News Icon" class="h-6 w-6 mr-2">
+                    Trending News
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <img src="images/UserAvatar.png" alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-blue-500">
+                <span id="username-display" class="text-white hidden md:inline">Guest</span>
+                <button id="logout-btn" class="deep-blue text-white px-4 py-2 rounded-lg deep-blue-hover btn-animated">
+                    Logout
+                </button>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    <img src="images/MenuIcon.png" alt="Menu Icon" class="h-8 w-8">
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-dark-silver">
+            <a href="index.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/HomeIcon.png" alt="Home Icon" class="h-6 w-6 mr-2">
+                Home
+            </a>
+            <a href="profile.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/ProfileIcon.png" alt="Profile Icon" class="h-6 w-6 mr-2">
+                Profile
+            </a>
+            <a href="dms.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/DMsIcon.png" alt="DMs Icon" class="h-6 w-6 mr-2">
+                DMs
+            </a>
+            <a href="polls.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/PollsIcon.png" alt="Polls Icon" class="h-6 w-6 mr-2">
+                Polls
+            </a>
+            <a href="communities.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/CommunitiesIcon.png" alt="Communities Icon" class="h-6 w-6 mr-2">
+                Communities
+            </a>
+            <a href="vip-lounge.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/VIPIcon.png" alt="VIP Icon" class="h-6 w-6 mr-2">
+                VIP Lounge
+            </a>
+            <a href="trending-news.html" class="flex items-center px-6 py-3 text-white hover:bg-blue-800 transition duration-300">
+                <img src="images/NewsIcon.png" alt="News Icon" class="h-6 w-6 mr-2">
+                Trending News
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto pt-28 px-6 main-content">
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-4 animate__animated animate__zoomIn">
+                Welcome to Bruthahood Community
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 animate__animated animate__fadeIn animate__delay-1s">
+                Connect, Share, and Thrive in Our Vibrant Social Space
+            </p>
+            <button id="join-conversation" class="deep-blue text-white px-8 py-4 rounded-lg text-lg font-semibold deep-blue-hover btn-animated animate__animated animate__pulse animate__delay-2s">
+                Join the Conversation
+            </button>
+        </section>
+
+        <!-- Toggle for Open Discussions -->
+        <section class="flex items-center justify-center mb-12 animate__animated animate__fadeInUp">
+            <label class="toggle-switch">
+                <input type="checkbox" id="discussion-toggle">
+                <span class="slider"></span>
+            </label>
+            <span class="ml-4 text-lg font-medium text-white">Open Discussions</span>
+        </section>
+
+        <!-- Community Feed (Friends) -->
+        <section id="community-feed" class="mb-16">
+            <h3 class="text-3xl font-bold text-white mb-6 flex items-center animate__animated animate__fadeInLeft">
+                <img src="images/FeedIcon.png" alt="Feed Icon" class="h-8 w-8 mr-3">
+                Community Feed (Friends)
+            </h3>
+            <div class="dark-silver p-6 rounded-xl shadow-lg mb-8 card-hover animate__animated animate__fadeIn">
+                <div class="flex items-start space-x-4">
+                    <img src="images/UserAvatar.png" alt="User Avatar" class="h-12 w-12 rounded-full border-2 border-blue-500">
+                    <div class="flex-1">
+                        <textarea id="post-content" rows="3" placeholder="What's on your mind?" class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"></textarea>
+                        <button onclick="submitPost()" class="mt-4 deep-blue text-white px-6 py-2 rounded-lg deep-blue-hover btn-animated">
+                            Post
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="posts" class="space-y-8">
+                <!-- Posts will be dynamically added here -->
+            </div>
+        </section>
+
+        <!-- Open Discussions (Toggled Section) -->
+        <section id="open-discussions" class="mb-16 hidden">
+            <h3 class="text-3xl font-bold text-white mb-6 animate__animated animate__fadeInRight">
+                Open Discussions
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="dark-silver p-6 rounded-xl shadow-lg card-hover animate__animated animate__fadeInUp">
+                    <h4 class="text-xl font-semibold text-white mb-3">What’s the Best Tech Stack for 2025?</h4>
+                    <p class="text-gray-300 mb-4">Share your thoughts on the latest trends in web development.</p>
+                    <a href="Discussion01.html" class="inline-block deep-blue text-white px-4 py-2 rounded-lg deep-blue-hover btn-animated">
+                        Join Discussion
+                    </a>
+                </div>
+                <div class="dark-silver p-6 rounded-xl shadow-lg card-hover animate__animated animate__fadeInUp animate__delay-1s">
+                    <h4 class="text-xl font-semibold text-white mb-3">AI in Everyday Life</h4>
+                    <p class="text-gray-300 mb-4">How is AI changing the way we live and work?</p>
+                    <a href="Discussion02.html" class="inline-block deep-blue text-white px-4 py-2 rounded-lg deep-blue-hover btn-animated">
+                        Join Discussion
+                    </a>
+                </div>
+                <div class="dark-silver p-6 rounded-xl shadow-lg card-hover animate__animated animate__fadeInUp animate__delay-2s">
+                    <h4 class="text-xl font-semibold text-white mb-3">Favorite Community Events</h4>
+                    <p class="text-gray-300 mb-4">Which events have you loved the most this year?</p>
+                    <a href="Discussion03.html" class="inline-block deep-blue text-white px-4 py-2 rounded-lg deep-blue-hover btn-animated">
+                        Join Discussion
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Sidebar (Visible on Desktop) -->
+    <aside class="hidden lg:block fixed right-0 top-28 w-72 h-[calc(100vh-7rem)] p-6 overflow-y-auto animate__animated animate__slideInRight">
+        <div class="dark-silver p-6 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center">
+                <img src="images/TrendingIcon.png" alt="Trending Icon" class="h-6 w-6 mr-2">
+                Trending Now
+            </h3>
+            <ul class="space-y-4">
+                <li class="text-gray-300 hover:text-blue-200 transition duration-300">
+                    <a href="#" class="flex items-center">
+                        <span>#TechInnovations2025</span>
+                    </a>
+                </li>
+                <li class="text-gray-300 hover:text-blue-200 transition duration-300">
+                    <a href="#" class="flex items-center">
+                        <span>#CommunitySpotlight</span>
+                    </a>
+                </li>
+                <li class="text-gray-300 hover:text-blue-200 transition duration-300">
+                    <a href="#" class="flex items-center">
+                        <span>#VIPAwards</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="bg-dark-silver py-8 mt-16 animate__animated animate__fadeInUp">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-300 mb-4">© 2025 Bruthahood Community. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-white hover:text-blue-200 transition duration-300">
+                    <img src="images/TwitterIcon.png" alt="Twitter Icon" class="h-6 w-6">
+                </a>
+                <a href="#" class="text-white hover:text-blue-200 transition duration-300">
+                    <img src="images/FacebookIcon.png" alt="Facebook Icon" class="h-6 w-6">
+                </a>
+                <a href="#" class="text-white hover:text-blue-200 transition duration-300">
+                    <img src="images/InstagramIcon.png" alt="Instagram Icon" class="h-6 w-6">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Toggle Open Discussions
+        const discussionToggle = document.getElementById('discussion-toggle');
+        const openDiscussions = document.getElementById('open-discussions');
+        discussionToggle.addEventListener('change', () => {
+            openDiscussions.classList.toggle('hidden');
+        });
+
+        // Back-End API URL
+        const API_URL = '/posts';
+        const token = localStorage.getItem('token');
+        let currentUser = localStorage.getItem('username');
+
+        // Check if logged in and update username
+        if (!token) {
+            console.log('No token found, redirecting to login');
+            window.location.href = '/login.html';
+        } else {
+            console.log('Retrieved username from localStorage:', currentUser);
+            if (!currentUser) {
+                currentUser = 'Guest';
+                console.warn('Username not found in localStorage. Defaulting to "Guest".');
+            }
+            const usernameDisplay = document.getElementById('username-display');
+            if (usernameDisplay) {
+                usernameDisplay.textContent = currentUser;
+                console.log('Username set to:', currentUser);
+            } else {
+                console.error('Username display element not found.');
+            }
+        }
+
+        // Sound for Like Button (replace with your sound file path)
+        const likeSound = new Audio('/sounds/like-sound.mp3'); // Placeholder path
+
+        // Join the Conversation Button
+        document.getElementById('join-conversation').addEventListener('click', () => {
+            if (!token) {
+                window.location.href = '/register.html';
+            } else {
+                document.getElementById('post-content').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Load Posts with Animation
+        async function loadPosts() {
+            try {
+                const response = await fetch(API_URL, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const posts = await response.json();
+                const postsDiv = document.getElementById('posts');
+                postsDiv.innerHTML = '';
+                posts.forEach((post, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'dark-silver p-6 rounded-xl shadow-lg flex items-start space-x-4 card-hover post-animated';
+                    div.innerHTML = `
+                        <img src="images/UserAvatar.png" alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-blue-500">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-white">${post.user}</span>
+                                <img src="images/Active.png" alt="Active Icon" class="h-5 w-5">
+                            </div>
+                            <p class="text-gray-300 mt-1">${post.content}</p>
+                            <p class="text-sm text-gray-400 mt-2">${new Date(post.timestamp).toLocaleString()}</p>
+                            <div class="mt-3 flex space-x-4">
+                                <button class="text-gray-300 hover:text-blue-200 flex items-center btn-animated like-btn" data-post-id="${post._id}" data-liked="false">
+                                    <img src="images/LikeIcon.png" alt="Like Icon" class="h-5 w-5 mr-1 like-icon"> Like
+                                    <span class="ml-1 like-count">${post.likes || 0}</span>
+                                </button>
+                                <button class="text-gray-300 hover:text-blue-200 flex items-center btn-animated comment-btn" data-post-id="${post._id}">
+                                    <img src="images/CommentIcon.png" alt="Comment Icon" class="h-5 w-5 mr-1"> Comment
+                                </button>
+                            </div>
+                            <div class="comment-section mt-4 hidden" data-post-id="${post._id}">
+                                <div class="comments-list space-y-3"></div>
+                                <div class="flex items-start space-x-3 mt-4">
+                                    <img src="images/UserAvatar.png" alt="User Avatar" class="h-8 w-8 rounded-full border-2 border-blue-500">
+                                    <div class="flex-1">
+                                        <textarea class="comment-input w-full p-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" rows="2" placeholder="Write a comment..."></textarea>
+                                        <button class="submit-comment mt-2 deep-blue text-white px-4 py-1 rounded-lg deep-blue-hover btn-animated">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    postsDiv.appendChild(div);
+                    setTimeout(() => {
+                        div.classList.add('visible');
+                    }, index * 200);
+                });
+
+                // Add event listeners for Like buttons
+                document.querySelectorAll('.like-btn').forEach(button => {
+                    button.addEventListener('click', async function () {
+                        const postId = this.getAttribute('data-post-id');
+                        const isLiked = this.getAttribute('data-liked') === 'true';
+                        const likeIcon = this.querySelector('.like-icon');
+                        const likeCountSpan = this.querySelector('.like-count');
+                        let likeCount = parseInt(likeCountSpan.textContent);
+
+                        if (isLiked) {
+                            // Unlike the post
+                            this.setAttribute('data-liked', 'false');
+                            this.classList.remove('liked', 'animate__animated', 'animate__heartBeat');
+                            likeCount--;
+                        } else {
+                            // Like the post
+                            this.setAttribute('data-liked', 'true');
+                            this.classList.add('liked', 'animate__animated', 'animate__heartBeat');
+                            likeSound.play().catch(err => console.error('Error playing sound:', err));
+                            likeCount++;
+                        }
+                        likeCountSpan.textContent = likeCount;
+
+                        // Update likes on the backend
+                        try {
+                            await fetch(`${API_URL}/${postId}/like`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({ action: isLiked ? 'unlike' : 'like' })
+                            });
+                        } catch (err) {
+                            console.error('Error updating like:', err);
+                        }
+                    });
+                });
+
+                // Add event listeners for Comment buttons
+                document.querySelectorAll('.comment-btn').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const postId = this.getAttribute('data-post-id');
+                        const commentSection = document.querySelector(`.comment-section[data-post-id="${postId}"]`);
+                        commentSection.classList.toggle('hidden');
+                    });
+                });
+
+                // Add event listeners for Submit Comment buttons
+                document.querySelectorAll('.submit-comment').forEach(button => {
+                    button.addEventListener('click', async function () {
+                        const postId = this.closest('.comment-section').getAttribute('data-post-id');
+                        const commentInput = this.closest('.comment-section').querySelector('.comment-input');
+                        const commentContent = commentInput.value.trim();
+
+                        if (!commentContent) return;
+
+                        try {
+                            const response = await fetch(`${API_URL}/${postId}/comment`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify({ content: commentContent })
+                            });
+                            if (response.ok) {
+                                commentInput.value = '';
+                                loadComments(postId);
+                            } else {
+                                alert('Failed to post comment');
+                            }
+                        } catch (err) {
+                            console.error('Error posting comment:', err);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.error('Error fetching posts:', err);
+            }
+        }
+
+        // Load Comments for a Post
+        async function loadComments(postId) {
+            try {
+                const response = await fetch(`${API_URL}/${postId}/comments`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const comments = await response.json();
+                const commentsList = document.querySelector(`.comment-section[data-post-id="${postId}"] .comments-list`);
+                commentsList.innerHTML = '';
+                comments.forEach(comment => {
+                    const div = document.createElement('div');
+                    div.className = 'flex items-start space-x-3';
+                    div.innerHTML = `
+                        <img src="images/UserAvatar.png" alt="User Avatar" class="h-6 w-6 rounded-full">
+                        <div>
+                            <span class="font-bold text-white">${comment.user}</span>
+                            <p class="text-gray-300">${comment.content}</p>
+                            <p class="text-sm text-gray-400">${new Date(comment.timestamp).toLocaleString()}</p>
+                        </div>
+                    `;
+                    commentsList.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Error fetching comments:', err);
+            }
+        }
+
+        // Submit Post
+        async function submitPost() {
+            const content = document.getElementById('post-content').value.trim();
+            if (!content) return;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ content })
+                });
+                if (response.ok) {
+                    document.getElementById('post-content').value = '';
+                    loadPosts();
+                } else {
+                    alert('Failed to post');
+                }
+            } catch (err) {
+                console.error('Error posting:', err);
+            }
+        }
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.href = '/login.html';
+        });
+
+        // Initial Load
+        loadPosts();
+    </script>
+</body>
+</html>
